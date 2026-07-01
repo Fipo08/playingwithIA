@@ -8,7 +8,7 @@
       "model": "deepseek-r1:8b",
       "persona": "Software Architect",
       "temperature": 0.5,
-      "tools": ["web_search", "web_fetch", "planner"],
+      "tools": ["planner"],
       "icon": "🏗️"
     },
     {
@@ -19,7 +19,7 @@
       "model": "qwen3:8b",
       "persona": "Developer",
       "temperature": 0.3,
-      "tools": ["web_fetch", "script_exec"],
+      "tools": ["script_exec"],
       "icon": "💻"
     },
     {
@@ -30,44 +30,164 @@
       "model": "llama3.1:8b",
       "persona": "Software Architect",
       "temperature": 0.2,
-      "tools": ["web_fetch"],
+      "tools": [],
       "icon": "📝"
     },
     {
-      "id": "gpt-turbo",
-      "name": "GPT-4 Turbo",
-      "description": "IA en la nube (OpenAI)",
-      "provider": "openai",
-      "model": "gpt-4-turbo",
-      "persona": "Developer",
-      "temperature": 0.3,
-      "tools": ["web_search", "web_fetch", "code_analysis"],
-      "icon": "🤖",
-      "api_key_env": "OPENAI_API_KEY"
-    },
-    {
-      "id": "claude-sonnet",
-      "name": "Claude Sonnet",
-      "description": "IA en la nube (Anthropic)",
-      "provider": "anthropic",
-      "model": "claude-sonnet-4-20250514",
-      "persona": "Software Architect",
-      "temperature": 0.4,
-      "tools": ["web_search", "planner", "file_analysis"],
-      "icon": "🟣",
-      "api_key_env": "ANTHROPIC_API_KEY"
-    },
-    {
-      "id": "gpt-mini",
-      "name": "GPT-4o Mini",
-      "description": "Rápido y económico (OpenAI)",
-      "provider": "openai",
-      "model": "gpt-4o-mini",
+      "id": "groq-llama",
+      "name": "Groq Llama 3",
+      "description": "Rápido, gratis, en la nube",
+      "provider": "groq",
+      "model": "llama-3.3-70b-versatile",
       "persona": "Developer",
       "temperature": 0.3,
       "tools": ["web_search", "web_fetch"],
       "icon": "⚡",
-      "api_key_env": "OPENAI_API_KEY"
+      "api_key_env": "GROQ_API_KEY"
+    },
+    {
+      "id": "groq-mixtral",
+      "name": "Groq Mixtral",
+      "description": "Razonamiento, gratis, nube",
+      "provider": "groq",
+      "model": "mixtral-8x7b-32768",
+      "persona": "Software Architect",
+      "temperature": 0.4,
+      "tools": ["web_search", "planner"],
+      "icon": "🧠",
+      "api_key_env": "GROQ_API_KEY"
+    },
+    {
+      "id": "deepseek-coder",
+      "name": "DeepSeek Coder",
+      "description": "Código, gratis tras registro",
+      "provider": "deepseek",
+      "model": "deepseek-coder",
+      "persona": "Developer",
+      "temperature": 0.2,
+      "tools": ["web_search", "web_fetch", "code_analysis"],
+      "icon": "🔧",
+      "api_key_env": "DEEPSEEK_API_KEY"
+    },
+    {
+      "id": "deepseek-chat",
+      "name": "DeepSeek Chat",
+      "description": "Chat general, gratis tras registro",
+      "provider": "deepseek",
+      "model": "deepseek-chat",
+      "persona": "Software Architect",
+      "temperature": 0.5,
+      "tools": ["web_search", "planner"],
+      "icon": "💬",
+      "api_key_env": "DEEPSEEK_API_KEY"
+    },
+    {
+      "id": "gemini-flash",
+      "name": "Gemini Flash",
+      "description": "Gratis, rápido, multimodal",
+      "provider": "gemini",
+      "model": "gemini-2.0-flash",
+      "persona": "Developer",
+      "temperature": 0.3,
+      "tools": ["web_search", "web_fetch", "code_analysis"],
+      "icon": "✨",
+      "api_key_env": "GEMINI_API_KEY"
+    },
+    {
+      "id": "gemini-pro",
+      "name": "Gemini 1.5 Pro",
+      "description": "Gratis, contexto largo, potente",
+      "provider": "gemini",
+      "model": "gemini-1.5-pro",
+      "persona": "Software Architect",
+      "temperature": 0.4,
+      "tools": ["web_search", "planner", "file_analysis"],
+      "icon": "🌟",
+      "api_key_env": "GEMINI_API_KEY"
+    },
+    {
+      "id": "qwen-turbo",
+      "name": "Qwen Turbo",
+      "description": "Qwen 2.5 via OpenRouter",
+      "provider": "openrouter",
+      "model": "qwen/qwen-turbo",
+      "persona": "Developer",
+      "temperature": 0.3,
+      "tools": ["web_search", "web_fetch"],
+      "icon": "🐉",
+      "api_key_env": "OPENROUTER_API_KEY"
+    },
+    {
+      "id": "qwen-coder",
+      "name": "Qwen Coder",
+      "description": "Qwen 2.5 Coder via OpenRouter",
+      "provider": "openrouter",
+      "model": "qwen/qwen-2.5-coder-32b-instruct",
+      "persona": "Developer",
+      "temperature": 0.2,
+      "tools": ["web_search", "web_fetch", "code_analysis"],
+      "icon": "🐉",
+      "api_key_env": "OPENROUTER_API_KEY"
+    },
+    {
+      "id": "claude-haiku",
+      "name": "Claude Haiku",
+      "description": "Rápido y barato via OpenRouter",
+      "provider": "openrouter",
+      "model": "anthropic/claude-3-haiku",
+      "persona": "Developer",
+      "temperature": 0.3,
+      "tools": ["web_search", "web_fetch"],
+      "icon": "🟣",
+      "api_key_env": "OPENROUTER_API_KEY"
+    },
+    {
+      "id": "kimi-32k",
+      "name": "Kimi 32k",
+      "description": "Kimi Moonshot AI, contexto 32k",
+      "provider": "kimi",
+      "model": "moonshot-v1-32k",
+      "persona": "Developer",
+      "temperature": 0.3,
+      "tools": ["web_search", "web_fetch"],
+      "icon": "🌙",
+      "api_key_env": "KIMI_API_KEY"
+    },
+    {
+      "id": "kimi-128k",
+      "name": "Kimi 128k",
+      "description": "Kimi Moonshot AI, contexto largo",
+      "provider": "kimi",
+      "model": "moonshot-v1-128k",
+      "persona": "Software Architect",
+      "temperature": 0.4,
+      "tools": ["web_search", "planner", "file_analysis"],
+      "icon": "🌙",
+      "api_key_env": "KIMI_API_KEY"
+    },
+    {
+      "id": "qwen-max",
+      "name": "Qwen Max",
+      "description": "Qwen via Alibaba Cloud",
+      "provider": "qwen",
+      "model": "qwen-max",
+      "persona": "Software Architect",
+      "temperature": 0.4,
+      "tools": ["web_search", "planner"],
+      "icon": "🐉",
+      "api_key_env": "QWEN_API_KEY"
+    },
+    {
+      "id": "qwen-plus",
+      "name": "Qwen Plus",
+      "description": "Qwen via Alibaba Cloud",
+      "provider": "qwen",
+      "model": "qwen-plus",
+      "persona": "Developer",
+      "temperature": 0.3,
+      "tools": ["web_search", "web_fetch", "code_analysis"],
+      "icon": "🐉",
+      "api_key_env": "QWEN_API_KEY"
     }
   ]
 }

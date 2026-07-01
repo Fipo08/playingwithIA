@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 from .providers.ollama_provider import OllamaProvider
 from .providers.openai_provider import OpenAIProvider
-from .providers.anthropic_provider import AnthropicProvider
+from .providers.gemini_provider import GeminiProvider
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 AGENTS_FILE = BASE_DIR / "AI" / "Config" / "agents.json"
@@ -19,7 +19,12 @@ if ENV_FILE.exists():
 _PROVIDER_CLASSES = {
     "ollama": OllamaProvider,
     "openai": OpenAIProvider,
-    "anthropic": AnthropicProvider,
+    "groq": OpenAIProvider,
+    "deepseek": OpenAIProvider,
+    "openrouter": OpenAIProvider,
+    "kimi": OpenAIProvider,
+    "qwen": OpenAIProvider,
+    "gemini": GeminiProvider,
 }
 
 _cache = {"agents": None, "providers": None, "instances": {}}
@@ -63,6 +68,12 @@ def get_provider_instance(agent_id: str):
     providers_config = get_providers_config()
     provider_config = providers_config.get(provider_name, {})
     provider_config["model"] = agent["model"]
+
+    # Permitir override de API URL desde variable de entorno
+    url_env = f"{provider_name.upper()}_API_URL"
+    env_url = os.getenv(url_env)
+    if env_url:
+        provider_config["api_url"] = env_url
 
     cls = _PROVIDER_CLASSES.get(provider_name)
     if not cls:
