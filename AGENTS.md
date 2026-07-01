@@ -48,9 +48,17 @@ OpenCode Ultimate: Entorno profesional de desarrollo con IA, memoria persistente
 - `Scripts/update-memory.ps1` — Actualizar memoria
 - `Scripts/auto-memory.ps1` — Memoria automática (+sesiones)
 
+## Memoria multi-usuario
+- `AI/Memory/users.json` — Lista de usuarios disponibles
+- `AI/Memory/users/[nombre]/` — Datos del usuario
+- Siempre preguntar "¿quién eres?" si no hay usuario activo
+- Cargar perfil.md, preferencias.md, proyectos.md del usuario activo
+
 ## Comportamiento esperado
-1. Antes de cualquier tarea, lee los archivos de memoria y reglas.
-2. Usa la persona adecuada según la tarea.
-3. Sigue los workflows cuando apliquen.
-4. Al finalizar, pregunta si debe actualizar la memoria.
-5. Usa español para comunicarte con el usuario.
+1. Preguntar quién es el usuario si no está definido
+2. Leer la memoria del usuario activo desde `AI/Memory/users/[user]/`
+3. Usar la persona adecuada según la tarea
+4. Leer AI/Rules/coding.md antes de codificar
+5. Sigue los workflows cuando apliquen
+6. Al finalizar, pregunta si debe actualizar la memoria
+7. Usa español para comunicarte con el usuario

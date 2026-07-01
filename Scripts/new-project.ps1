@@ -6,6 +6,7 @@ param(
     [switch]$Register
 )
 
+. "$PSScriptRoot\_helpers.ps1"
 $projectPath = "Projects/$Name"
 
 if (Test-Path $projectPath) {
@@ -24,9 +25,10 @@ New-Item -ItemType Directory -Path "$projectPath/docs" -Force | Out-Null
 Write-Host "Proyecto creado: $projectPath" -ForegroundColor Green
 
 if ($Register) {
+    $proyectosFile = Get-UserFile "proyectos.md"
     $entry = "`n- **$Name** — $Description`n  - Estado: En desarrollo`n  - Stack: $Stack"
-    Add-Content -Path "AI/Memory/proyectos.md" -Value $entry -Encoding utf8
-    Write-Host "Registrado en AI/Memory/proyectos.md" -ForegroundColor Yellow
+    Add-Content -Path $proyectosFile -Value $entry -Encoding utf8
+    Write-Host "Registrado en $proyectosFile" -ForegroundColor Yellow
 }
 
 Write-Host "`nSiguiente paso: cd $projectPath y empieza a codificar" -ForegroundColor Cyan

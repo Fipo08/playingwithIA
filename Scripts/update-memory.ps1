@@ -3,6 +3,8 @@ param(
     [string]$Content = ""
 )
 
+. "$PSScriptRoot\_helpers.ps1"
+
 if (-not $Category -or -not $Content) {
     Write-Host "Uso: .\Scripts\update-memory.ps1 -Category [perfil|preferencias|proyectos] -Content 'texto'" -ForegroundColor Yellow
     exit 1
@@ -14,7 +16,7 @@ if ($Category -notin $validCategories) {
     exit 1
 }
 
-$filePath = "AI/Memory/$Category.md"
+$filePath = Get-UserFile "$Category.md"
 $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm"
 
 Add-Content -Path $filePath -Value "`n## [$timestamp]"

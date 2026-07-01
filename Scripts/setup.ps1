@@ -1,5 +1,7 @@
 param([switch]$Quiet)
 
+. "$PSScriptRoot\_helpers.ps1"
+
 function Write-Step {
     param([string]$Label, [string]$Status, [string]$Icon)
     if (-not $Quiet) { Write-Host "$Icon [$Status] $Label" }
@@ -32,11 +34,12 @@ $ok = 0; $fail = 0
 foreach ($d in $dirs) { if (Test-Path $d) { $ok++ } else { $fail++ } }
 Write-Step "Directorios base ($ok/$($dirs.Count) presentes)" $(if ($fail -eq 0) {"OK"} else {"WARN"}) $(if ($fail -eq 0) {"✅"} else {"⚠️"})
 
-# 5. Archivos clave
-$files = @("AGENTS.md","README.md","ROADMAP.md","AI/Memory/perfil.md","AI/Memory/preferencias.md","AI/Memory/proyectos.md")
-$ok = 0
-foreach ($f in $files) { if (Test-Path $f) { $ok++ } }
-Write-Step "Archivos clave ($ok/$($files.Count))" $(if ($ok -eq $files.Count) {"OK"} else {"WARN"}) $(if ($ok -eq $files.Count) {"✅"} else {"⚠️"})
+# 5. Usuarios
+$userDir = "AI/Memory/users"
+if (Test-Path $userDir) {
+    $userCount = (Get-ChildItem "$userDir/*" -Directory | Where-Object { $_ -notlike "*_template*" }).Count
+    Write-Step "Usuarios registrados: $userCount" "OK" "✅"
+} else { Write-Step "Directorios de usuario no encontrados" "WARN" "⚠️" }
 
 Write-Host ""
 Write-Host "=== Setup completo ===" -ForegroundColor Green

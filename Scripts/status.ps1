@@ -1,5 +1,10 @@
+. "$PSScriptRoot\_helpers.ps1"
+
 Write-Host "=== OpenCode Ultimate — Status ===" -ForegroundColor Cyan
 Write-Host ""
+
+$user = Get-ActiveUser
+Write-Host "Usuario activo: $user" -ForegroundColor Yellow
 
 # Versión
 $version = "2.0"
@@ -32,8 +37,9 @@ foreach ($r in $resources) {
 }
 
 # Proyectos activos
-if (Test-Path "AI/Memory/proyectos.md") {
-    $proyectos = Get-Content "AI/Memory/proyectos.md" | Select-String "^-\s+\*\*"
+$proyectosFile = Get-UserFile "proyectos.md"
+if (Test-Path $proyectosFile) {
+    $proyectos = Get-Content $proyectosFile | Select-String "^-\s+\*\*"
     if ($proyectos) {
         Write-Host "`n--- Proyectos activos ---" -ForegroundColor Cyan
         $proyectos | ForEach-Object { Write-Host "  $_" }
