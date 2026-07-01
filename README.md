@@ -3,26 +3,29 @@
 Entorno profesional de desarrollo con IA, memoria persistente y automatización.
 
 ## Versión actual
-v2.0 — Memoria inteligente, Configuración, Integraciones
+v3.0 — Multi-agente con orquestador desde terminal
 
 ## Estructura
 ```
 ├── AI/
-│   ├── Config/          # Configuración del entorno (env, models, integrations)
-│   ├── KnowledgeBase/   # Base de conocimiento (git, ollama)
-│   ├── Memory/          # Memoria persistente + sesiones
-│   ├── Personas/        # Roles de IA (Architect, Developer)
+│   ├── Config/          # Configuración (env, models, agents, providers)
+│   ├── Memory/          # Memoria persistente + sesiones + token budget
+│   ├── Personas/        # Roles de IA (Architect, Developer, Qwen, Kimi)
 │   ├── Prompts/         # Prompts reutilizables (Planner, Debugger)
 │   ├── Rules/           # Reglas de codificación y buenas prácticas
-│   ├── Templates/       # Plantillas (proyectos, commits, PRs)
 │   └── Workflows/       # Workflows ejecutables
 ├── Documentation/       # Documentación del proyecto
 ├── Projects/            # Proyectos activos
-├── Playground/          # Pruebas y experimentos
-├── Resources/           # Recursos útiles
-├── Scripts/             # Scripts de automatización (setup, backup, etc.)
+├── Scripts/             # Scripts de automatización + proveedores + orquestador
 ├── Backups/             # Backups del proyecto
-├── .github/workflows/   # CI checks
-├── AGENTS.md            # Instrucciones para la IA
+├── AGENTS.md            # Instrucciones para la IA (orquestador)
 └── CLAUDE.md            # Compatibilidad con Claude Code
 ```
+
+## Cómo usar
+Solo háblame desde la terminal. Yo:
+1. Analizo tu tarea
+2. Decido si responder yo o delegar a un agente especializado
+3. Elijo el mejor proveedor según token budget
+4. Ejecuto el agente y te traigo la respuesta
+5. Actualizo la memoria si es necesario

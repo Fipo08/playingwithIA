@@ -6,9 +6,5 @@ class BaseProvider(ABC):
         self.config = config
 
     @abstractmethod
-    async def chat(self, messages: list, temperature: float = 0.3) -> str:
-        pass
-
-    @abstractmethod
-    async def is_available(self) -> bool:
+    def chat(self, messages: list, temperature: float = 0.3) -> str:
         pass

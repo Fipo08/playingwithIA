@@ -1,6 +1,6 @@
 import os
-import httpx
 import json
+import httpx
 from .base import BaseProvider
 
 
@@ -11,9 +11,9 @@ class GeminiProvider(BaseProvider):
         key_env = config.get("key_env", "GEMINI_API_KEY")
         self.api_key = os.getenv(key_env, "")
 
-    async def chat(self, messages: list, temperature: float = 0.3) -> str:
+    def chat(self, messages: list, temperature: float = 0.3) -> str:
         if not self.api_key:
-            return "❌ API key de Gemini no configurada. Revisa .env (GEMINI_API_KEY)"
+            return "Error: GEMINI_API_KEY no configurada"
 
         model = self.config.get("model", "gemini-2.0-flash")
 
@@ -29,27 +29,16 @@ class GeminiProvider(BaseProvider):
 
         payload = {
             "contents": contents,
-            "generationConfig": {
-                "temperature": temperature,
-                "maxOutputTokens": 8192,
-            },
+            "generationConfig": {"temperature": temperature, "maxOutputTokens": 8192},
         }
         if system_instruction:
             payload["systemInstruction"] = {"parts": [{"text": system_instruction}]}
 
         url = f"{self.api_url}/models/{model}:generateContent?key={self.api_key}"
-        headers = {"Content-Type": "application/json"}
-
-        async with httpx.AsyncClient(timeout=120) as client:
-            r = await client.post(url, json=payload, headers=headers)
-            if r.status_code == 200:
-                data = r.json()
-                try:
-                    return data["candidates"][0]["content"]["parts"][0]["text"]
-                except (KeyError, IndexError):
-                    return f"Respuesta inesperada: {json.dumps(data, indent=2)[:500]}"
-            body = r.text[:500]
-            return f"Error Gemini ({r.status_code}): {body}"
-
-    async def is_available(self) -> bool:
-        return bool(self.api_key)
+        r = httpx.post(url, json=payload, headers={"Content-Type": "application/json"}, timeout=180)
+        if r.status_code == 200:
+            try:
+                return r.json()["candidates"][0]["content"]["parts"][0]["text"]
+            except (KeyError, IndexError):
+                return f"Respuesta inesperada: {json.dumps(r.json(), indent=2)[:500]}"
+        return f"Error Gemini ({r.status_code}): {r.text[:300]}"

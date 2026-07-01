@@ -3,62 +3,95 @@
 ## Proyecto
 OpenCode Ultimate: Entorno profesional de desarrollo con IA, memoria persistente y automatización.
 
-## Memoria persistente
-- `AI/Memory/perfil.md` — Perfil del desarrollador
-- `AI/Memory/preferencias.md` — Preferencias técnicas
-- `AI/Memory/proyectos.md` — Lista de proyectos activos
-
-## Personas disponibles
-- `AI/Personas/Software Architect.md` — Diseño y arquitectura
-- `AI/Personas/Developer.md` — Implementación y debugging
-
-## Reglas
-- `AI/Rules/coding.md` — Reglas de codificación, git y seguridad
-
-## Prompts
-- `AI/Prompts/planner.md` — Planificar tareas
-- `AI/Prompts/debugger.md` — Depuración sistemática
-
-## Workflows
-- `AI/Workflows/Crear Proyecto.md` — Nuevos proyectos
-- `AI/Workflows/Solución de Bugs.md` — Debugging
-- `AI/Workflows/Code Review.md` — Revisión de código
-- `AI/Workflows/Git Flow.md` — Gestión de ramas
-- `AI/Workflows/Deploy.md` — Despliegue
-
-## Knowledge Base
-- `AI/KnowledgeBase/git-cheatsheet.md`
-- `AI/KnowledgeBase/ollama-guide.md`
-
-## Documentación
-- `Documentation/architecture.md`
-- `Documentation/usage.md`
-- `Documentation/CHANGELOG.md`
-
-## Configuración
-- `AI/Config/env.md` — Variables de entorno
-- `AI/Config/models.md` — Modelos de IA
-- `AI/Config/integrations.md` — Integraciones externas
-
-## Scripts
-- `Scripts/setup.ps1` — Verificar entorno
-- `Scripts/status.ps1` — Estado del proyecto
-- `Scripts/new-project.ps1` — Crear proyecto
-- `Scripts/backup.ps1` — Backup
-- `Scripts/update-memory.ps1` — Actualizar memoria
-- `Scripts/auto-memory.ps1` — Memoria automática (+sesiones)
+## Ubicación
+C:\proyectosIA
 
 ## Memoria multi-usuario
 - `AI/Memory/users.json` — Lista de usuarios disponibles
 - `AI/Memory/users/[nombre]/` — Datos del usuario
-- Siempre preguntar "¿quién eres?" si no hay usuario activo
+- Preguntar "¿quién eres?" si no hay usuario activo
 - Cargar perfil.md, preferencias.md, proyectos.md del usuario activo
 
-## Comportamiento esperado
-1. Preguntar quién es el usuario si no está definido
-2. Leer la memoria del usuario activo desde `AI/Memory/users/[user]/`
-3. Usar la persona adecuada según la tarea
-4. Leer AI/Rules/coding.md antes de codificar
-5. Sigue los workflows cuando apliquen
-6. Al finalizar, pregunta si debe actualizar la memoria
-7. Usa español para comunicarte con el usuario
+## Agentes especializados
+Los agentes están definidos en `AI/Config/agents.json`. Cada uno tiene:
+- Un proveedor (ollama, groq, deepseek, gemini, etc.)
+- Un modelo específico
+- Una persona (perfil de comportamiento)
+- Una temperatura
+- Un icono
+
+## Token budget
+El archivo `AI/Memory/token_budget.json` lleva el control de uso por proveedor.
+Consultarlo antes de delegar a un agente cloud. Si un proveedor está sin saldo,
+buscar alternativas.
+
+## Flujo orquestador
+
+### 1. Recibir tarea del usuario
+Escuchar la solicitud. Determinar si es una tarea simple o compleja.
+
+### 2. Decidir: responder o delegar
+- **Tarea simple** (pregunta rápida, charla, consejo): responder directamente con mi conocimiento
+- **Tarea compleja** (codificar, diseñar, analizar documentos, debuggear): delegar a un agente especializado
+
+### 3. Delegar a un agente
+Ejecutar:
+```powershell
+python Scripts\orchestrate.py --detect --task "<tarea>"
+```
+El orquestador:
+- Lee agents.json
+- Evalúa palabras clave en la tarea
+- Revisa token budget de cada proveedor
+- Elige el mejor agente disponible
+- Devuelve la respuesta
+
+O si ya sé qué agente usar:
+```powershell
+python Scripts\orchestrate.py --agent <id> --task "<tarea>"
+```
+
+### 4. Evaluar el resultado
+- Si el resultado es bueno: presentarlo al usuario
+- Si no: intentar con otro agente o escalar al usuario
+
+### 5. Actualizar memoria
+Al finalizar:
+- Preguntar si debe actualizar la memoria
+- Si el usuario dice que sí: actualizar los archivos en `AI/Memory/users/[user]/`
+- Hacer git add, commit y push de los cambios
+
+## Personas disponibles
+| Persona | Cuándo usarla |
+|---------|---------------|
+| Software Architect | Diseño, planificación, revisión de estructura |
+| Developer | Implementación, bugs, refactor, tests |
+| Qwen Programador | Programación, revisión de código, scripts |
+| Kimi Context | Análisis de documentos largos, contexto extenso |
+
+## Reglas de orquestación
+- Siempre preferir Ollama (local, ilimitado) para tareas que no requieran cloud
+- Usar agentes cloud solo cuando se necesite: contexto largo, código complejo, búsqueda web
+- Si un agente cloud falla o no tiene saldo, rotar automáticamente al siguiente mejor
+- Si todos los cloud están sin saldo, usar Ollama y avisar al usuario
+
+## Workflows disponibles
+- `Crear Proyecto` — Nuevos proyectos (Scripts/new-project.ps1)
+- `Solución de Bugs` — Debugging (delegar a agente adecuado)
+- `Code Review` — Revisión de código (delegar a Qwen Programador)
+- `Git Flow` — Gestión de ramas
+- `Deploy` — Despliegue
+
+## Scripts disponibles
+- `Scripts/setup.ps1` — Verificar entorno
+- `Scripts/status.ps1` — Estado del proyecto
+- `Scripts/backup.ps1` — Backup
+- `Scripts/update-memory.ps1` — Actualizar memoria
+- `Scripts/orchestrate.py` — Orquestador de agentes (--detect, --agent, --task)
+
+## Comportamiento general
+- Usa español para comunicarte con el usuario
+- Explica qué agente usaste y por qué
+- Si delegaste a un agente, muestra su respuesta textual
+- Siempre da opción de refinar la respuesta o cambiar de agente
+- Al final de cada tarea importante, pregunta si actualizar la memoria
