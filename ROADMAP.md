@@ -9,4 +9,8 @@
 ## Futuro
 - v2.1 — Proyecto ejemplo, más scripts, testing
 - v2.2 — Git hooks automáticos
-- v3.0 — Panel de administración web, instalador, auto-updates
+- [ ] v3.0 — Panel web (FastAPI + Jinja2) — backend listo
+- [ ] v3.1 — Instalador Python cross-platform
+- [ ] v3.2 — Auto-updates desde GitHub
+- [ ] v3.5 — Dashboard completo con gráficos
+- [ ] v4.0 — Multi-usuario con UI completa

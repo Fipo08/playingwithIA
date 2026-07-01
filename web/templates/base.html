@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenCode Ultimate</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-brand">OpenCode Ultimate</div>
+        <div class="nav-user">
+            <span class="badge">{{ user }}</span>
+            {% if ollama_ok %}
+            <span class="badge badge-ok">Ollama OK</span>
+            {% else %}
+            <span class="badge badge-warn">Ollama OFF</span>
+            {% endif %}
+            {% if update.has_update %}
+            <span class="badge badge-update">v{{ update.latest }} disponible</span>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
