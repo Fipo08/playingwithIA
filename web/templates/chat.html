@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="agent-tabs">
+    {% for a in agents %}
+    <a href="/chat/{{ a.id }}" class="agent-tab {% if a.id == active_agent %}active{% endif %}"
+       title="{{ a.description }} ({{ a.provider }})">
+        <span>{{ a.icon }}</span>
+        <span>{{ a.name }}</span>
+        <small>{{ a.provider }}</small>
+    </a>
+    {% endfor %}
+</div>
+
+<div class="chat-container">
+    <div class="chat-header">
+        {% set agent = agents | selectattr("id", "equalto", active_agent) | first %}
+        <h2>{{ agent.icon if agent else "" }} {{ agent.name if agent else active_agent }}</h2>
+        <small class="dim">{{ agent.description if agent else "" }} — {{ agent.provider if agent else "" }} / {{ agent.model if agent else "" }}</small>
+    </div>
+
+    <div class="chat-messages" id="messages">
+        {% if conversation %}
+            {% for msg in conversation %}
+                {% if msg.role != "system" %}
+                <div class="msg msg-{{ msg.role }}">
+                    <div class="msg-label">{{ "Tú" if msg.role == "user" else agent.name if agent else active_agent }}</div>
+                    <div class="msg-content">{{ msg.content }}</div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+        <div class="chat-empty">
+            <p>Envía un mensaje para empezar a conversar con <strong>{{ agent.name if agent else active_agent }}</strong></p>
+        </div>
+        {% endif %}
+    </div>
+
+    <form action="/chat" method="post" class="chat-form">
+        <input type="hidden" name="agent_id" value="{{ active_agent }}">
+        <input type="text" name="message" placeholder="Escribe tu mensaje..." autofocus required>
+        <button type="submit">Enviar</button>
+    </form>
+</div>
+
+<script>
+    var msgs = document.getElementById('messages');
+    if (msgs) msgs.scrollTop = msgs.scrollHeight;
+</script>
+{% endblock %}

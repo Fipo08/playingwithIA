@@ -9,6 +9,12 @@
 <body>
     <nav class="nav">
         <div class="nav-brand">OpenCode Ultimate</div>
+        <div class="nav-links">
+            <a href="/" class="nav-link {% if page == 'dashboard' %}active{% endif %}">Dashboard</a>
+            {% if agents %}
+            <a href="/chat/{{ agents[0].id }}" class="nav-link {% if page == 'chat' %}active{% endif %}">Chat</a>
+            {% endif %}
+        </div>
         <div class="nav-user">
             <span class="badge">{{ user }}</span>
             {% if ollama_ok %}

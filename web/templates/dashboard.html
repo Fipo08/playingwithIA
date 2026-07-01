@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="card" style="text-align:center; background:#1f3a5f; border-color:#58a6ff;">
+    <p style="font-size:1.1rem;">
+        💬 Prueba los agentes en el <a href="/chat/{{ agents[0].id if agents else '' }}" style="font-weight:700;">Chat multi-agente</a>
+    </p>
+</div>
+
 <div class="grid">
     <div class="card">
         <h2>Usuario activo</h2>

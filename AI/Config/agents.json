@@ -1,0 +1,73 @@
+{
+  "agents": [
+    {
+      "id": "arquitecto",
+      "name": "Arquitecto",
+      "description": "Diseño y planificación de arquitectura",
+      "provider": "ollama",
+      "model": "deepseek-r1:8b",
+      "persona": "Software Architect",
+      "temperature": 0.5,
+      "tools": ["web_search", "web_fetch", "planner"],
+      "icon": "🏗️"
+    },
+    {
+      "id": "desarrollador",
+      "name": "Desarrollador",
+      "description": "Implementación y debugging",
+      "provider": "ollama",
+      "model": "qwen3:8b",
+      "persona": "Developer",
+      "temperature": 0.3,
+      "tools": ["web_fetch", "script_exec"],
+      "icon": "💻"
+    },
+    {
+      "id": "documentador",
+      "name": "Documentador",
+      "description": "Documentación y análisis",
+      "provider": "ollama",
+      "model": "llama3.1:8b",
+      "persona": "Software Architect",
+      "temperature": 0.2,
+      "tools": ["web_fetch"],
+      "icon": "📝"
+    },
+    {
+      "id": "gpt-turbo",
+      "name": "GPT-4 Turbo",
+      "description": "IA en la nube (OpenAI)",
+      "provider": "openai",
+      "model": "gpt-4-turbo",
+      "persona": "Developer",
+      "temperature": 0.3,
+      "tools": ["web_search", "web_fetch", "code_analysis"],
+      "icon": "🤖",
+      "api_key_env": "OPENAI_API_KEY"
+    },
+    {
+      "id": "claude-sonnet",
+      "name": "Claude Sonnet",
+      "description": "IA en la nube (Anthropic)",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-20250514",
+      "persona": "Software Architect",
+      "temperature": 0.4,
+      "tools": ["web_search", "planner", "file_analysis"],
+      "icon": "🟣",
+      "api_key_env": "ANTHROPIC_API_KEY"
+    },
+    {
+      "id": "gpt-mini",
+      "name": "GPT-4o Mini",
+      "description": "Rápido y económico (OpenAI)",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "persona": "Developer",
+      "temperature": 0.3,
+      "tools": ["web_search", "web_fetch"],
+      "icon": "⚡",
+      "api_key_env": "OPENAI_API_KEY"
+    }
+  ]
+}
