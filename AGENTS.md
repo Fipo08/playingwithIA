@@ -35,6 +35,19 @@ OpenCode Ultimate: Entorno profesional de desarrollo con IA, memoria persistente
 - `Documentation/usage.md`
 - `Documentation/CHANGELOG.md`
 
+## Configuración
+- `AI/Config/env.md` — Variables de entorno
+- `AI/Config/models.md` — Modelos de IA
+- `AI/Config/integrations.md` — Integraciones externas
+
+## Scripts
+- `Scripts/setup.ps1` — Verificar entorno
+- `Scripts/status.ps1` — Estado del proyecto
+- `Scripts/new-project.ps1` — Crear proyecto
+- `Scripts/backup.ps1` — Backup
+- `Scripts/update-memory.ps1` — Actualizar memoria
+- `Scripts/auto-memory.ps1` — Memoria automática (+sesiones)
+
 ## Comportamiento esperado
 1. Antes de cualquier tarea, lee los archivos de memoria y reglas.
 2. Usa la persona adecuada según la tarea.

@@ -1,0 +1,19 @@
+name: OpenCode Ultimate Check
+
+on: [push, pull_request]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verificar estructura
+        run: |
+          for dir in AI/Memory AI/Personas AI/Prompts AI/Rules AI/Templates AI/Workflows Documentation Scripts; do
+            if [ -d "$dir" ]; then echo "✅ $dir"; else echo "❌ $dir"; exit 1; fi
+          done
+      - name: Verificar archivos clave
+        run: |
+          for file in AGENTS.md README.md ROADMAP.md; do
+            if [ -f "$file" ]; then echo "✅ $file"; else echo "❌ $file"; exit 1; fi
+          done

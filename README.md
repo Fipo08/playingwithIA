@@ -3,14 +3,14 @@
 Entorno profesional de desarrollo con IA, memoria persistente y automatización.
 
 ## Versión actual
-v1.1 — Personas, Reglas, Prompts, Templates y Workflows
+v2.0 — Memoria inteligente, Configuración, Integraciones
 
 ## Estructura
 ```
 ├── AI/
-│   ├── Config/          # Configuración del entorno
-│   ├── KnowledgeBase/   # Base de conocimiento
-│   ├── Memory/          # Memoria persistente del desarrollador
+│   ├── Config/          # Configuración del entorno (env, models, integrations)
+│   ├── KnowledgeBase/   # Base de conocimiento (git, ollama)
+│   ├── Memory/          # Memoria persistente + sesiones
 │   ├── Personas/        # Roles de IA (Architect, Developer)
 │   ├── Prompts/         # Prompts reutilizables (Planner, Debugger)
 │   ├── Rules/           # Reglas de codificación y buenas prácticas
@@ -20,8 +20,9 @@ v1.1 — Personas, Reglas, Prompts, Templates y Workflows
 ├── Projects/            # Proyectos activos
 ├── Playground/          # Pruebas y experimentos
 ├── Resources/           # Recursos útiles
-├── Scripts/             # Scripts de automatización
+├── Scripts/             # Scripts de automatización (setup, backup, etc.)
 ├── Backups/             # Backups del proyecto
+├── .github/workflows/   # CI checks
 ├── AGENTS.md            # Instrucciones para la IA
 └── CLAUDE.md            # Compatibilidad con Claude Code
 ```
