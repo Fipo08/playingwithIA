@@ -9,17 +9,31 @@ OpenCode Ultimate: Entorno profesional de desarrollo con IA, memoria persistente
 - `AI/Memory/proyectos.md` — Lista de proyectos activos
 
 ## Personas disponibles
-- `AI/Personas/Software Architect.md` — Para diseño y arquitectura
+- `AI/Personas/Software Architect.md` — Diseño y arquitectura
+- `AI/Personas/Developer.md` — Implementación y debugging
 
 ## Reglas
-- `AI/Rules/coding.md` — Reglas de codificación
+- `AI/Rules/coding.md` — Reglas de codificación, git y seguridad
 
 ## Prompts
-- `AI/Prompts/planner.md` — Prompt para planificar tareas
-- `AI/Prompts/debugger.md` — Prompt para depuración
+- `AI/Prompts/planner.md` — Planificar tareas
+- `AI/Prompts/debugger.md` — Depuración sistemática
 
 ## Workflows
-- `AI/Workflows/Crear Proyecto.md` — Workflow para nuevos proyectos
+- `AI/Workflows/Crear Proyecto.md` — Nuevos proyectos
+- `AI/Workflows/Solución de Bugs.md` — Debugging
+- `AI/Workflows/Code Review.md` — Revisión de código
+- `AI/Workflows/Git Flow.md` — Gestión de ramas
+- `AI/Workflows/Deploy.md` — Despliegue
+
+## Knowledge Base
+- `AI/KnowledgeBase/git-cheatsheet.md`
+- `AI/KnowledgeBase/ollama-guide.md`
+
+## Documentación
+- `Documentation/architecture.md`
+- `Documentation/usage.md`
+- `Documentation/CHANGELOG.md`
 
 ## Comportamiento esperado
 1. Antes de cualquier tarea, lee los archivos de memoria y reglas.
