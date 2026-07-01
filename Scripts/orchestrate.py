@@ -158,6 +158,34 @@ def run_agent(agent, task, system_prompt=""):
     return result
 
 
+def try_with_fallback(agent, task, system_prompt, max_attempts=5):
+    seen = set()
+    queue = [agent]
+    while queue and len(seen) < max_attempts:
+        current = queue.pop(0)
+        if current["id"] in seen:
+            continue
+        seen.add(current["id"])
+
+        if not has_budget(current["provider"]):
+            print(f"[{current['provider']} sin saldo, buscando alternativa...]")
+            alt = find_alternative(current)
+            if alt:
+                queue.append(alt)
+            continue
+
+        result = run_agent(current, task, system_prompt)
+        if not result.startswith("Error"):
+            return result, current
+
+        print(f"[{current['name']} fallo: {result[:80]}...]")
+        alt = find_alternative(current)
+        if alt:
+            queue.append(alt)
+
+    return "No se pudo completar la tarea con los agentes disponibles.", agent
+
+
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="OpenCode Ultimate - Orquestador")
@@ -172,8 +200,6 @@ def main():
         if not agent:
             print("No se detecto un agente adecuado. Usa --agent para elegir manualmente.")
             sys.exit(1)
-        print(f"🤖 Agente seleccionado: {agent.get('icon','')} {agent['name']} ({agent['provider']}/{agent['model']})")
-        print("-" * 50)
     elif args.agent:
         agent = get_agent(args.agent)
         if not agent:
@@ -183,18 +209,15 @@ def main():
         print("Usa --agent <id> o --detect")
         sys.exit(1)
 
-    if not has_budget(agent["provider"]):
-        print(f"⚠️  {agent['provider']} sin saldo disponible. Buscando alternativas...")
-        alt = find_alternative(agent)
-        if alt:
-            print(f"➡️  Usando {alt['name']} como alternativa")
-            agent = alt
-        else:
-            print("No hay alternativas disponibles.")
-            sys.exit(1)
+    print(f"[{agent['name']}] ({agent['provider']}/{agent['model']})")
+    print("-" * 50)
 
-    result = run_agent(agent, args.task, args.system)
-    print(result)
+    result, used_agent = try_with_fallback(agent, args.task, args.system)
+    if used_agent["id"] != agent["id"]:
+        print(f"[Uso {used_agent['name']} como alternativa]")
+
+    safe = result.encode('ascii', errors='replace').decode('ascii')
+    print(safe)
 
 
 def find_alternative(agent):

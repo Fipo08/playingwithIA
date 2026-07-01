@@ -1,9 +1,37 @@
 {
-  "groq": { "budget": 1000000, "used": 0, "unit": "tokens/dia" },
-  "deepseek": { "budget": 500000, "used": 0, "unit": "tokens" },
-  "gemini": { "budget": 1500, "used": 0, "unit": "requests/dia" },
-  "ollama": { "budget": -1, "used": 0, "unit": "ilimitado" },
-  "kimi": { "budget": 500000, "used": 0, "unit": "tokens" },
-  "openrouter": { "budget": 100000, "used": 0, "unit": "tokens" },
-  "qwen": { "budget": 500000, "used": 0, "unit": "tokens" }
+  "groq": {
+    "budget": 1000000,
+    "used": 0,
+    "unit": "tokens/dia"
+  },
+  "deepseek": {
+    "budget": 500000,
+    "used": 218,
+    "unit": "tokens"
+  },
+  "gemini": {
+    "budget": 1500,
+    "used": 0,
+    "unit": "requests/dia"
+  },
+  "ollama": {
+    "budget": -1,
+    "used": 430,
+    "unit": "ilimitado"
+  },
+  "kimi": {
+    "budget": 500000,
+    "used": 0,
+    "unit": "tokens"
+  },
+  "openrouter": {
+    "budget": 100000,
+    "used": 0,
+    "unit": "tokens"
+  },
+  "qwen": {
+    "budget": 500000,
+    "used": 0,
+    "unit": "tokens"
+  }
 }
