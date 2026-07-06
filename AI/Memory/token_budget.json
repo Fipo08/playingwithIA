@@ -1,17 +1,17 @@
 {
   "groq": {
     "budget": 1000000,
-    "used": 0,
+    "used": 424,
     "unit": "tokens/dia"
   },
   "deepseek": {
     "budget": 500000,
-    "used": 218,
+    "used": 642,
     "unit": "tokens"
   },
   "gemini": {
     "budget": 1500,
-    "used": 0,
+    "used": 206,
     "unit": "requests/dia"
   },
   "ollama": {

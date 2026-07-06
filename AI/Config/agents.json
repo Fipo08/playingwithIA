@@ -188,6 +188,18 @@
       "tools": ["web_search", "web_fetch", "code_analysis"],
       "icon": "🐉",
       "api_key_env": "QWEN_API_KEY"
+    },
+    {
+      "id": "chat",
+      "name": "Chat",
+      "description": "Conversación general y preguntas rápidas en la nube",
+      "provider": "gemini",
+      "model": "gemini-2.0-flash",
+      "persona": "Chat",
+      "temperature": 0.5,
+      "tools": [],
+      "icon": "💬",
+      "api_key_env": "GEMINI_API_KEY"
     }
   ]
 }

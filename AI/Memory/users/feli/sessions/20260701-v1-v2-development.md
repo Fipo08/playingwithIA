@@ -24,7 +24,7 @@ Software Architect + Developer
 ## Pendiente
 - Probar los scripts en entorno real
 - Crear proyecto ejemplo en Projects/
-- Expandir Knowledge Base con más referencias
+- ~~Expandir Knowledge Base con más referencias~~ ✅ (2026-07-06)
 
 ## Notas
 Proyecto ahora funcional como plantilla reusable para cualquier desarrollo con IA.
